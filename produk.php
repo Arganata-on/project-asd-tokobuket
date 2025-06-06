@@ -1,9 +1,9 @@
 <?php
 include("database.php");
 
-$kategori = $_POST['kategori'] ?? '*';
+$kategori = $_GET['kategori'] ?? 'semua';
 
-if ($kategori == '*') {
+if ($kategori == 'semua') {
     $sql = "   SELECT * FROM produk";
 } else {
     $sql = "SELECT * FROM produk WHERE id_kategori = '$kategori'";
@@ -44,9 +44,9 @@ $result = mysqli_query($conn, $sql);
 
     <main>
 
-        <form action="produk.php" method="post">
+        <form action="produk.php" method="get">
             <div class="categories">
-                <button type="submit" name="kategori" value="*" class="category active">Semua</button>
+                <button type="submit" name="kategori" value="semua" class="category active">Semua</button>
                 <button type="submit" name="kategori" value="1" class="category">Kategori A</button>
                 <button type="submit" name="kategori" value="2" class="category">Kategori B</button>
                 <button type="submit" name="kategori" value="3" class="category">Kategori C</button>
@@ -58,16 +58,26 @@ $result = mysqli_query($conn, $sql);
 
         <ul class="product-list">
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
+
                 <li class="product">
                     <div class="product-image">
-                        <img src="<?= htmlspecialchars($row['gambar_produk']) ?>" alt="<?= htmlspecialchars($row['nama_produk']) ?>" />
+                        <img src="<?php echo htmlspecialchars($row['gambar_produk']) ?>" alt="<?php echo htmlspecialchars($row['nama_produk']) ?>" />
                     </div>
+
                     <div class="product-content">
-                        <h2><?= htmlspecialchars($row['nama_produk']) ?></h2>
-                        <span class="product-price">Rp <?= number_format($row['harga_produk'], 0, ',', '.') ?></span>
+                        <h2>
+                            <?php echo htmlspecialchars($row['nama_produk']) ?>
+                        </h2>
+                        <p class="product-description"><?php echo htmlspecialchars($row['deskripsi_produk']) ?></p>
+                        <span class="product-price">Rp <?php echo number_format($row['harga_produk'], 0, ',', '.') ?>
+                        </span>
                         <div class="product-buttons">
-                            <a href="detail-produk.html" class="btn btn-outline"><i class="fas fa-info-circle"></i> Detail</a>
-                            <button class="btn btn-primary"><i class="fas fa-cart-plus"></i> Beli</button>
+                            <a href="detail-produk.php" class="btn btn-outline">
+                                <i class="fas fa-info-circle"></i> Detail
+                            </a>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i> Beli
+                            </button>
                         </div>
                     </div>
                 </li>
