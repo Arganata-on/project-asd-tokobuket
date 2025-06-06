@@ -1,6 +1,11 @@
 <?php
 include("database.php");
 
+$sql_terlaris = "SELECT * FROM produk WHERE id_produk = 1";
+$result_terlaris = mysqli_query($conn, $sql_terlaris);
+$row_terlaris = mysqli_fetch_assoc($result_terlaris);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +69,7 @@ include("database.php");
                             alt="Item 1" />
                     </div>
                     <div class="product-content">
-                        <h2>Item 1</h2>
+                        <h2><?php echo htmlspecialchars($row_terlaris['nama_produk']) ?></h2>
                         <p class="product-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, blanditiis quas neque sint rerum dicta dolore quasi porro illo distinctio aut ipsam quos esse vitae eaque reiciendis mollitia veritatis. Facere.</p>
                         <span class="product-price">Rp 1.500.000</span>
                         <div class="product-buttons">
@@ -103,7 +108,7 @@ include("database.php");
                             alt="Item 3" />
                     </div>
                     <div class="product-content">
-                        <h2>Item 3</h2>
+                        <h2> Waduh</h2>
                         <p class="product-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, blanditiis quas neque sint rerum dicta dolore quasi porro illo distinctio aut ipsam quos esse vitae eaque reiciendis mollitia veritatis. Facere.</p>
                         <span class="product-price">Rp 12.000.000</span>
                         <div class="product-buttons">
