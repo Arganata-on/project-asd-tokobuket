@@ -4,7 +4,7 @@ include("database.php");
 $kategori = $_GET['kategori'] ?? 'semua';
 
 if ($kategori == 'semua') {
-    $sql = "   SELECT * FROM produk";
+    $sql = "SELECT * FROM produk INNER JOIN kategori ON produk.id_kategori = kategori.id_kategori";
 } else {
     $sql = "SELECT * FROM produk WHERE id_kategori = '$kategori'";
 }
@@ -71,8 +71,11 @@ $result = mysqli_query($conn, $sql);
                         <p class="product-description"><?php echo htmlspecialchars($row['deskripsi_produk']) ?></p>
                         <span class="product-price">Rp <?php echo number_format($row['harga_produk'], 0, ',', '.') ?>
                         </span>
+
+                        <span class="product-stock">Tersedia: <?php echo htmlspecialchars($row['stok']) ?> item</span>
+
                         <div class="product-buttons">
-                            <a href="detail-produk.php" class="btn btn-outline">
+                            <a href="detailproduk.php" class="btn btn-outline">
                                 <i class="fas fa-info-circle"></i> Detail
                             </a>
                             <button class="btn btn-primary">
